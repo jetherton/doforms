@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+
+
+/**
+ * CSS for the DoFroms Plugin for Ushahidi 
+ *
+ * This plugin was written for ICRC by Etherton Technologies
+ * 2011
+ *
+ * @package    DoForms plugin
+ * @author     John Etherton, Etherton Technologies <john@ethertontech.com>
+ * 
+ */ 
+
+
+	
+tr.do_setting_row td
+	{
+		padding: 10px 0px;
+		vertical-align:middle;
+	}
+	
+	
+tr.do_setting_row td input
+	{
+		width:450px;
+	}
+	
+tr.do_setting_row td span.save-rep-btn
+	{
+		margin:4px;
+	}	
+	
+td.status_column
+	{
+		
+	}
+
+#description_fields_table
+	{
+		border:1px solid #D1D1D1;
+		padding:30px;
+		margin-left:14px;
+		width: auto;
+	}
+
+
+	
+#description_fields_table tr td
+	{
+		border-top:1px solid #D1D1D1;
+		border-bottom:1px solid #D1D1D1;
+		padding:5px;
+	}	
+	
+.sync_status
+	{
+		margin: 20px;
+		padding: 10px;
+		border: 1px solid #D1D1D1;
+	}
+.report-form h4
+	{
+		padding: 16px 0 0;
+	}
+.required
+	{
+		font-size:8pt;
+		color:#993333;
+		padding-top:0px;
+		margin-top:0px;
+	}
