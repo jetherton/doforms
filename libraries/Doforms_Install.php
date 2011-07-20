@@ -88,6 +88,43 @@ class Doforms_Install {
 		// ****************************************
 		
 		
+			
+		//Check to see if we should add the publish field		
+		$result = $this->db->query('DESCRIBE `'.Kohana::config('database.default.table_prefix').'doforms`');
+		$has_publish = false;
+		foreach($result as $row)
+		{
+			if($row->Field == "publish")
+			{
+				$has_publish = true;
+				break;
+			}
+		}
+		
+		if(!$has_publish)
+		{
+			$this->db->query('ALTER TABLE `'.Kohana::config('database.default.table_prefix').'doforms` ADD `publish` TINYINT(4) NULL DEFAULT NULL');
+		}
+		//****************************************
+		
+
+		//Check to see if we should add the category field		
+		$result = $this->db->query('DESCRIBE `'.Kohana::config('database.default.table_prefix').'doforms`');
+		$has_category = false;
+		foreach($result as $row)
+		{
+			if($row->Field == "category")
+			{
+				$has_category = true;
+				break;
+			}
+		}
+		
+		if(!$has_category)
+		{
+			$this->db->query('ALTER TABLE `'.Kohana::config('database.default.table_prefix').'doforms` ADD `category` INT(11) NULL DEFAULT NULL');
+		}
+		//****************************************
 	}
 
 	/**
@@ -96,13 +133,13 @@ class Doforms_Install {
 	public function uninstall()
 	{
 		//drop the main table
-		$this->db->query("DROP TABLE ".Kohana::config('database.default.table_prefix')."doforms;");
+		//$this->db->query("DROP TABLE ".Kohana::config('database.default.table_prefix')."doforms;");
 		
 		//drop the table that maps do form fields to Ushahidi report fields
-		$this->db->query("DROP TABLE ".Kohana::config('database.default.table_prefix')."doforms_fields;");
+		//$this->db->query("DROP TABLE ".Kohana::config('database.default.table_prefix')."doforms_fields;");
 		
 		//drop the table that maps do form rows to Ushahidi reports to prevent duplication
-		$this->db->query("DROP TABLE ".Kohana::config('database.default.table_prefix')."doforms_reports;");
+		//$this->db->query("DROP TABLE ".Kohana::config('database.default.table_prefix')."doforms_reports;");
 		
 	}
 }
