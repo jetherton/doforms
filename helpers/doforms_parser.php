@@ -27,12 +27,18 @@ class doforms_parser_Core {
 	public static function getFormFields($url)
 	{
 		$retVal = array();
-		$url = 	trim($url);			
+		$url = 	trim($url);
+		$xmlReader = false;			
 		$xmlReader = @XMLReader::open($url);
 		
 		
 		if($xmlReader === false)
 		{		
+			return Kohana::lang("doforms.error_opening_url");
+		}
+		
+		if(!$xmlReader->isValid())
+		{
 			return Kohana::lang("doforms.error_opening_url");
 		}
 		
@@ -72,7 +78,7 @@ class doforms_parser_Core {
 			return Kohana::lang("doforms.not_valid_doform_id");
 		}
 		
-		$url = $doForm->url;
+		$url = trim($doForm->url);		
 		$form_id = $doForm->form_id;
 		
 		//now get the mappings
@@ -148,11 +154,17 @@ class doforms_parser_Core {
 		}
 		
 		//now get the data and walk through it
-		$xmlReader = XMLReader::open($url);
+		$xmlReader = false;
+		$xmlReader = @XMLReader::open($url);
 		
 		
 		if($xmlReader === false)
 		{		
+			return Kohana::lang("doforms.error_opening_url");
+		}
+		
+		if(!$xmlReader->isValid())
+		{
 			return Kohana::lang("doforms.error_opening_url");
 		}
 		
@@ -357,17 +369,22 @@ class doforms_parser_Core {
 		$incident->incident_description = $description_text;
 		$incident->incident_date = date("Y-m-d H:i:s",strtotime($date));
 		$incident->incident_dateadd = date("Y-m-d H:i:s",time());
+		if ($doForm_settings->publish)
+		{
+			$incident->incident_active = 1;
+			$incident->incident_verified = 1;
+		}
 		$incident->save();
 		
 		 // Record Approval/Verification Action
 		$verify = new Verify_Model();
 		$verify->incident_id = $incident->id;
-		$verify->user_id = "DOFORMS_PLUGIN";          // Record 'Verified By' Action
+		$verify->user_id = "0";          // Record 'Verified By' Action
 		$verify->verified_date = date("Y-m-d H:i:s",time());
 
 		if ($doForm_settings->publish)
 		{
-		    $verify->verified_status = '1';
+		    $verify->verified_status = '1';		
 		}		
 		else
 		{
