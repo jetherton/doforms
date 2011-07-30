@@ -142,7 +142,7 @@ class Doforms_Ajax_Controller extends Admin_Controller
 
 		//save the changes to the database
 		$doform_setting = ORM::factory("doforms")->where("id", $id)->find();
-		$doform_setting->url = $url;
+		$doform_setting->url = trim($url);
 		$doform_setting->active = $active;
 		$doform_setting->form_id = $form_id;
 		$doform_setting->publish = $publish;
