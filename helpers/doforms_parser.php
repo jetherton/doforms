@@ -37,17 +37,24 @@ class doforms_parser_Core {
 			return Kohana::lang("doforms.error_opening_url");
 		}
 		
-		if(!$xmlReader->isValid())
+		
+		if(! @$xmlReader->read() )
 		{
 			return Kohana::lang("doforms.error_opening_url");
 		}
 		
 		//read till you hit a row
-		while($xmlReader->read() && $xmlReader->name !== "row")
+		while($xmlReader->name !== "row")
+		{
+			if(! @$xmlReader->read() )
+			{
+				return Kohana::lang("doforms.error_opening_url");
+			}	
+		}
 		
 		//no look through all the fields till you hit the next row
 		$last_name = "";
-		while($xmlReader->read() && $xmlReader->name !== "row")
+		while(@$xmlReader->read() && $xmlReader->name !== "row")
 		{
 			if($xmlReader->nodeType != XMLReader::ELEMENT || $last_name == $xmlReader->name)
 			{
@@ -58,6 +65,13 @@ class doforms_parser_Core {
 			$retVal[] = $field_array;
 			$last_name = $xmlReader->name;
 		}
+		
+		$xmlerrors = libxml_get_last_error();
+		if($xmlerrors !== false)
+		{
+			return Kohana::lang("doforms.error_opening_url"). "<br/><br/>".$xmlerrors->message;
+		}
+		
 		return $retVal;
 	}
 	
@@ -163,10 +177,12 @@ class doforms_parser_Core {
 			return Kohana::lang("doforms.error_opening_url");
 		}
 		
-		if(!$xmlReader->isValid())
+		
+		if(! @$xmlReader->read() )
 		{
 			return Kohana::lang("doforms.error_opening_url");
 		}
+		
 		
 		//read till you hit a row
 		$retVals = "";
@@ -176,8 +192,8 @@ class doforms_parser_Core {
 		$duplicates = 0;
 		$successful = 0;
 		
-		while($xmlReader->read())
-		{
+		while( @$xmlReader->read())
+		{			
 			 if($xmlReader->name === "row" && $xmlReader->nodeType == XMLReader::ELEMENT)
 			 {
 			 	//get the XML for the row element and parse it
@@ -220,6 +236,13 @@ class doforms_parser_Core {
 			 	//$retVals .= self::parseRow($xmlRowReader, $mapping_array,$id) . "<br/>";
 			 }
 		}
+		$xmlerrors = libxml_get_last_error();
+		if($xmlerrors !== false)
+		{
+			return Kohana::lang("doforms.error_opening_url"). "<br/><br/>".$xmlerrors->message;
+		}
+		
+		
 		$summary = Kohana::lang("doforms.total").": $total, ".Kohana::lang("doforms.duplicates").": $duplicates, "
 			.Kohana::lang("doforms.errors"). ": $errors, ". Kohana::lang("doforms.successful"). ": $successful<br/><br>"; 
 		return $summary.$retVals;
