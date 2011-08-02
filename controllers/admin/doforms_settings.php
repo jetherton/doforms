@@ -296,7 +296,7 @@ class Doforms_Settings_Controller extends Admin_Controller
 				}
 			}
 		}//end else (not a post)
-		
+		$this->template->content->form_name = $doform_setting->name;
 		$this->template->content->id = $id;
         $this->template->content->form = $form;
         $this->template->content->errors = $errors;

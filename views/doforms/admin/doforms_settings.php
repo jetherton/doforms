@@ -26,6 +26,7 @@
 					$view->id = $doform_setting->id;
 					$view->active = $doform_setting->active;
 					$view->url = $doform_setting->url;
+					$view->name = $doform_setting->name;
 					$view->is_first = $is_first;
 					$view->show_map_fields = true;
 					$view->selected_form =  $doform_setting->form_id;

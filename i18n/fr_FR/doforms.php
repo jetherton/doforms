@@ -68,6 +68,10 @@
 	"publish"=>"Automatically make reports visible to the public",
 	"category"=>"Automatically categorize reports from this DoForm with the given category",
 	"none"=>"None",
+	
+	"name"=>"Name",
+	"from_form"=>"From Flux:",
+	
 );
 	
 	

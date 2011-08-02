@@ -28,7 +28,9 @@ function addNew()
 function saveSetting(id)
 {
 	$('#doform_status_'+id).html('<img src="<?php echo url::base(); ?>media/img/loading_g.gif"/>');	
+	
 	var form_url = $("#doform_url_"+id).val().toString();
+	var form_name = $("#doform_name_"+id).val().toString();
 	
 	var active = 0;
 	var doform_id = id;
@@ -50,9 +52,11 @@ function saveSetting(id)
 	var cat_id = $('#doform_cat_'+id+' option:selected').val();
 	
 	
+	
+	
 	$.ajax({url: "<?php echo url::site(); ?>admin/doforms_ajax/save",
 		   dataType: "html",
-		   data: {"id":doform_id, "url":form_url, "formId":form_id, "active":active, "publish":publish, "category":cat_id},
+		   data: {"id":doform_id, "url":form_url, "formId":form_id, "active":active, "publish":publish, "category":cat_id, "name":form_name},
 		   type:"POST", 
 		   success:
 			function(data){

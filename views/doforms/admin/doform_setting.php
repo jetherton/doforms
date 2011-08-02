@@ -31,15 +31,14 @@
 	</td>
 	
 	<td style="padding-left:5px;">
-		<div><?php echo Kohana::lang("doforms.url"); ?>: <input type="text" name="doform_url_<?php echo $id;?>" id="doform_url_<?php echo $id;?>" value="<?php echo $url?>"/></div>
-		<br/>
 		<div id="doform_status_<?php echo $id;?>"></div>
+		<div><?php echo Kohana::lang("doforms.url"); ?>: <input type="text" name="doform_url_<?php echo $id;?>" id="doform_url_<?php echo $id;?>" value="<?php echo $url?>"/></div>
+		<div><?php echo Kohana::lang("doforms.name"); ?>: <input type="text" name="doform_name_<?php echo $id;?>" id="doform_name_<?php echo $id;?>" value="<?php echo $name?>"/></div>		
 		<div>
 			<?php echo Kohana::lang("doforms.publish"); ?>:
 			<input style="width:auto;" type="checkbox" name="doform_publish_<?php echo $id;?>" id="doform_publish_<?php echo $id;?>" value="active"
 				<?php echo $publish ? "checked" : ""; ?>/>
 		</div>
-		<br/>
 		<div>
 			<?php echo Kohana::lang("doforms.category"); ?>:
 			<?php print form::dropdown('doform_cat_'.$id, $available_categories, $selected_cat); ?>

@@ -60,6 +60,7 @@ class Doforms_Ajax_Controller extends Admin_Controller
 		$view->selected_form = $doform_setting->form_id;
 		$view->selected_cat = -1;
 		$view->url = "";
+		$view->name = "";
 		$view->is_first = $is_first;
 		$view->show_map_fields = false;
 		$view->publish = 1;
@@ -139,6 +140,16 @@ class Doforms_Ajax_Controller extends Admin_Controller
 		{
 			$category = -1;	
 		}
+		
+		if(isset($_POST["name"]))
+		{
+			$name = $_POST["name"]; 
+		}
+		else
+		{
+			$name = null;	
+		}
+		
 
 		//save the changes to the database
 		$doform_setting = ORM::factory("doforms")->where("id", $id)->find();
@@ -147,6 +158,7 @@ class Doforms_Ajax_Controller extends Admin_Controller
 		$doform_setting->form_id = $form_id;
 		$doform_setting->publish = $publish;
 		$doform_setting->category = $category;
+		$doform_setting->name = $name;
 		$doform_setting->save();
 		
 		//check the URL to make sure it's valid

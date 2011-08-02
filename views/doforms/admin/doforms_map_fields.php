@@ -67,7 +67,7 @@
 			}
 			?>
 			<div class="head">
-				<h3><?php echo Kohana::lang("doforms.map_fields") ?></h3>
+				<h3><?php echo Kohana::lang("doforms.map_fields")." - ". $form_name; ?></h3>
 				<div class="btns" style="float:right;">
 					<ul>
 						<li><a href="#" class="btn_save"><?php echo Kohana::lang("doforms.save");?></a></li>

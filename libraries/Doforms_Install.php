@@ -125,6 +125,25 @@ class Doforms_Install {
 			$this->db->query('ALTER TABLE `'.Kohana::config('database.default.table_prefix').'doforms` ADD `category` INT(11) NULL DEFAULT NULL');
 		}
 		//****************************************
+		
+		
+		//Check to see if we should add the name field		
+		$result = $this->db->query('DESCRIBE `'.Kohana::config('database.default.table_prefix').'doforms`');
+		$has_category = false;
+		foreach($result as $row)
+		{
+			if($row->Field == "name")
+			{
+				$has_category = true;
+				break;
+			}
+		}
+		
+		if(!$has_category)
+		{
+			$this->db->query('ALTER TABLE `'.Kohana::config('database.default.table_prefix').'doforms` ADD `name` varchar(256) NULL DEFAULT NULL');
+		}
+		//****************************************
 	}
 
 	/**
